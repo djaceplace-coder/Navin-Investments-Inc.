@@ -5,7 +5,7 @@ import { DollarSign, Search, Edit2, Save, X, Activity } from 'lucide-react';
 
 type UserBalance = {
   id: string;
-  user_id: string;
+  profile_id: string;
   email: string;
   first_name: string;
   last_name: string;
@@ -32,7 +32,7 @@ export function AdminBalances() {
     try {
       setLoading(true);
       const { data, error } = await supabase
-        .from('user_balances')
+        .from('profile_balances')
         .select('*')
         .order('created_at', { ascending: false });
 
@@ -59,7 +59,7 @@ export function AdminBalances() {
   const handleSave = async (id: string) => {
     try {
       const { error } = await supabase
-        .from('user_balances')
+        .from('profile_balances')
         .update({
           total_balance: editForm.total_balance,
           invested_amount: editForm.invested_amount,

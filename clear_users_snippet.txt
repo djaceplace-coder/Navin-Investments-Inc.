@@ -2,4 +2,4 @@
 DELETE FROM auth.users;
 
 -- Also clear out the balances table just in case (though cascading deletes should handle it)
-DELETE FROM public.user_balances;
+DELETE FROM public.profile_balances;

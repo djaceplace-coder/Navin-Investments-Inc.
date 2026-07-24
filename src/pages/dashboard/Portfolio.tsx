@@ -37,9 +37,9 @@ export function Portfolio() {
 
   const fetchBalance = async () => {
     const { data, error } = await supabase
-      .from('user_balances')
+      .from('profile_balances')
       .select('*')
-      .eq('user_id', user?.id)
+      .eq('profile_id', user?.id)
       .single();
       
     if (data && !error) {
