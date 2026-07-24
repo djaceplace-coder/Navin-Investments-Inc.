@@ -23,7 +23,7 @@ export function Insurance() {
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-[40px] leading-[1.1] sm:text-5xl lg:text-6xl font-bold font-heading text-slate-900 mb-6 tracking-tight"
+          className="text-3xl leading-tight sm:text-5xl lg:text-6xl font-bold font-heading text-slate-900 mb-6 tracking-tight"
         >
           Coverage built by people who've done this for 30 years.
         </motion.h1>

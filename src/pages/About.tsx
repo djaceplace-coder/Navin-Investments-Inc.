@@ -10,7 +10,7 @@ export function About() {
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-[40px] leading-[1.1] sm:text-5xl lg:text-7xl font-bold font-heading text-slate-900 mb-6 tracking-tight"
+          className="text-3xl leading-tight sm:text-5xl lg:text-7xl font-bold font-heading text-slate-900 mb-6 tracking-tight"
         >
           30 years of building moats.
         </motion.h1>

@@ -66,7 +66,7 @@ export function AgentProfile() {
                 <span className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-sm font-medium">{agent.exp}</span>
               </div>
               
-              <h1 className="text-4xl sm:text-5xl font-bold font-heading text-slate-900 mb-6">{agent.name}</h1>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-slate-900 mb-6">{agent.name}</h1>
               
               <div className="flex flex-wrap items-center gap-6 text-slate-600 mb-8 pb-8 border-b border-slate-100">
                 <div className="flex items-center gap-2">

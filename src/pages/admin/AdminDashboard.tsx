@@ -152,6 +152,10 @@ export function AdminDashboard() {
                   <h2 className="text-lg font-bold font-heading text-white">Agent Directory</h2>
                   <Link to="/admin/agents" className="text-sm text-slate-400 hover:text-white transition-colors">View All</Link>
                 </div>
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-lg font-bold font-heading text-white">User Balances</h2>
+                  <Link to="/admin/balances" className="text-sm text-slate-400 hover:text-white transition-colors">Manage Balances</Link>
+                </div>
                 <div className="relative mb-4">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                   <input 

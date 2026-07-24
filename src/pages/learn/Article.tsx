@@ -28,7 +28,7 @@ export function Article() {
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-4xl sm:text-5xl font-bold font-heading text-slate-900 leading-[1.15] mb-6 tracking-tight"
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-slate-900 leading-[1.15] mb-6 tracking-tight"
             >
               The Modern Moat: How to Structure a Resilient Multi-Asset Portfolio
             </motion.h1>

@@ -10,7 +10,7 @@ export function BecomeAgent() {
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading text-slate-900 mb-6"
+          className="text-3xl sm:text-5xl lg:text-6xl font-bold font-heading text-slate-900 mb-6"
         >
           Join an agency built to last.
         </motion.h1>

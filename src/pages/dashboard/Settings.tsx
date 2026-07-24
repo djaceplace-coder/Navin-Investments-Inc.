@@ -1,11 +1,18 @@
 import { motion } from 'motion/react';
 import { User, Bell, Shield, Key, CreditCard, Smartphone } from 'lucide-react';
 import { useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, useNavigate } from 'react-router-dom';
+import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../lib/AuthContext';
 
 export function Settings() {
   const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate('/');
+  };
   const { openAgentChat } = useOutletContext<{ openAgentChat: (prefill?: string) => void }>();
   const [activeTab, setActiveTab] = useState('profile');
 

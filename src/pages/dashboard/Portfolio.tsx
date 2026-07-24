@@ -3,6 +3,9 @@ import { PieChart as PieChartIcon, TrendingUp, TrendingDown, RefreshCw, Download
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
+import { useAuth } from '../../lib/AuthContext';
+import { supabase } from '../../lib/supabase';
+import { useEffect } from 'react';
 
 const mockChartData = [
   { name: 'Jan', value: 120000 },
@@ -23,6 +26,26 @@ const holdings = [
 ];
 
 export function Portfolio() {
+  const { user } = useAuth();
+  const [userBalance, setUserBalance] = useState({ total_balance: 145000, invested_amount: 0, cash_balance: 0, returns_amount: 0 });
+
+  useEffect(() => {
+    if (user) {
+      fetchBalance();
+    }
+  }, [user]);
+
+  const fetchBalance = async () => {
+    const { data, error } = await supabase
+      .from('user_balances')
+      .select('*')
+      .eq('user_id', user?.id)
+      .single();
+      
+    if (data && !error) {
+      setUserBalance(data);
+    }
+  };
   const [timeframe, setTimeframe] = useState('1M');
   const { openAgentChat } = useOutletContext<{ openAgentChat: (prefill?: string) => void }>();
 
@@ -54,7 +77,7 @@ export function Portfolio() {
           <div className="flex justify-between items-start mb-6">
             <div>
               <div className="text-slate-500 text-sm font-medium mb-1">Total Value</div>
-              <div className="text-3xl sm:text-4xl font-bold text-slate-900">$145,000.00</div>
+              <div className="text-3xl sm:text-4xl font-bold text-slate-900">${userBalance.total_balance.toLocaleString('en-US', {minimumFractionDigits: 2})}</div>
               <div className="flex items-center gap-2 mt-2">
                 <span className="inline-flex items-center text-sm font-medium text-green-600 bg-green-50 px-2 py-1 rounded-md">
                   <TrendingUp className="w-4 h-4 mr-1" /> +$25,000.00 (20.8%)

@@ -33,6 +33,7 @@ import { Login } from './pages/auth/Login';
 import { Signup } from './pages/auth/Signup';
 import { AdminDashboard } from './pages/admin/AdminDashboard';
 import { AdminAgents } from './pages/admin/AdminAgents';
+import { AdminBalances } from './pages/admin/AdminBalances';
 import { ComingSoon } from './pages/ComingSoon';
 import { Portfolio } from './pages/dashboard/Portfolio';
 import { Transactions } from './pages/dashboard/Transactions';
@@ -96,6 +97,7 @@ export default function App() {
         <Route path="admin">
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="agents" element={<AdminAgents />} />
+          <Route path="balances" element={<AdminBalances />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,0 +1,56 @@
+CREATE TABLE IF NOT EXISTS public.user_balances (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+    email TEXT NOT NULL,
+    first_name TEXT,
+    last_name TEXT,
+    total_balance NUMERIC(15, 2) NOT NULL DEFAULT 0.00,
+    invested_amount NUMERIC(15, 2) NOT NULL DEFAULT 0.00,
+    cash_balance NUMERIC(15, 2) NOT NULL DEFAULT 0.00,
+    returns_amount NUMERIC(15, 2) NOT NULL DEFAULT 0.00,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()),
+    UNIQUE(user_id)
+);
+
+ALTER TABLE public.user_balances ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Users can view their own balances" ON public.user_balances FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY "Users can update their own balances" ON public.user_balances FOR UPDATE USING (auth.uid() = user_id);
+
+CREATE POLICY "Admin can view all balances" ON public.user_balances FOR SELECT USING (true);
+CREATE POLICY "Admin can update all balances" ON public.user_balances FOR UPDATE USING (true);
+CREATE POLICY "Admin can insert balances" ON public.user_balances FOR INSERT WITH CHECK (true);
+CREATE POLICY "Admin can delete balances" ON public.user_balances FOR DELETE USING (true);
+
+-- Function to handle new user signup
+CREATE OR REPLACE FUNCTION public.handle_new_user() 
+RETURNS trigger AS $$
+BEGIN
+  INSERT INTO public.user_balances (user_id, email, first_name, last_name)
+  VALUES (
+    new.id, 
+    new.email, 
+    new.raw_user_meta_data->>'first_name', 
+    new.raw_user_meta_data->>'last_name'
+  );
+  RETURN new;
+END;
+$$ language plpgsql security definer;
+
+-- Trigger to call the function on signup
+DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
+CREATE TRIGGER on_auth_user_created
+  AFTER INSERT ON auth.users
+  FOR EACH ROW EXECUTE PROCEDURE public.handle_new_user();
+
+-- Trigger to update updated_at
+CREATE OR REPLACE FUNCTION update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+   NEW.updated_at = NOW();
+   RETURN NEW;
+END;
+$$ language 'plpgsql';
+
+CREATE TRIGGER update_user_balances_updated_at BEFORE UPDATE ON public.user_balances FOR EACH ROW EXECUTE PROCEDURE update_updated_at_column();

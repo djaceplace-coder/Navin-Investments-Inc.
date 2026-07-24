@@ -18,35 +18,46 @@ export function ForBusiness() {
     <div className="flex flex-col w-full overflow-hidden">
       
       {/* Hero */}
-      <section className="pt-20 pb-16 lg:pt-24 lg:pb-20 px-5 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full text-center relative z-10">
-        <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-[40px] leading-[1.1] sm:text-5xl lg:text-7xl font-bold font-heading text-slate-900 mb-6 tracking-tight"
-        >
-          The platform other agencies wish they had.
-        </motion.h1>
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="text-lg sm:text-xl text-slate-600 mb-10 max-w-3xl mx-auto leading-relaxed"
-        >
-          We built our technology to solve our own problems. Now, we license our unified brokerage and insurance infrastructure to institutional partners.
-        </motion.p>
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="flex flex-col sm:flex-row justify-center gap-4"
-        >
-          <a href="#contact" className="bg-slate-900 text-white px-8 py-4 rounded-full text-base font-medium hover:bg-slate-800 transition-all active:scale-95 inline-block w-full sm:w-auto shadow-md">
-            Request Demo
-          </a>
-          <button className="bg-white text-slate-900 border border-slate-200 px-8 py-4 rounded-full text-base font-medium hover:bg-slate-50 transition-all active:scale-95 inline-flex items-center justify-center gap-2 w-full sm:w-auto shadow-sm">
-            <FileText className="w-5 h-5" /> Download Deck
-          </button>
-        </motion.div>
+      <section className="relative pt-24 pb-16 lg:pt-32 lg:pb-24 px-5 sm:px-6 lg:px-8 w-full text-center z-10">
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1541888043653-5d55e884e93d?q=80&w=2000&auto=format&fit=crop" 
+            alt="Classical architecture" 
+            className="w-full h-full object-cover object-[center_30%] opacity-80"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/80 to-white" />
+        </div>
+
+        <div className="relative z-10 max-w-5xl mx-auto">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-3xl leading-tight sm:text-5xl lg:text-7xl font-bold font-heading text-slate-900 mb-6 tracking-tight"
+          >
+            The platform other agencies wish they had.
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-lg sm:text-xl text-slate-600 mb-10 max-w-3xl mx-auto leading-relaxed"
+          >
+            We built our technology to solve our own problems. Now, we license our unified brokerage and insurance infrastructure to institutional partners.
+          </motion.p>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="flex flex-col sm:flex-row justify-center gap-4"
+          >
+            <a href="#contact" className="bg-slate-900 text-white px-8 py-4 rounded-full text-base font-medium hover:bg-slate-800 transition-all active:scale-95 inline-block w-full sm:w-auto shadow-md">
+              Request Demo
+            </a>
+            <button className="bg-white text-slate-900 border border-slate-200 px-8 py-4 rounded-full text-base font-medium hover:bg-slate-50 transition-all active:scale-95 inline-flex items-center justify-center gap-2 w-full sm:w-auto shadow-sm">
+              <FileText className="w-5 h-5" /> Download Deck
+            </button>
+          </motion.div>
+        </div>
       </section>
 
       {/* Abstract 3D Architecture Visual */}

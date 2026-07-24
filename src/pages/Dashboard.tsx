@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight, Wallet, PieChart, ShieldCheck, Activity, Bell, ChevronDown, Plus, Sliders, FileText, Download, ArrowUpRight, ArrowDownRight, MessageSquare } from 'lucide-react';
 import { Link, useNavigate, useOutletContext } from 'react-router-dom';
 import { useAuth } from '../lib/AuthContext';
+import { supabase } from '../lib/supabase';
+import { useEffect } from 'react';
 import { DepositModal } from '../components/dashboard/DepositModal';
 import { RebalanceModal } from '../components/dashboard/RebalanceModal';
 import { ClaimModal } from '../components/dashboard/ClaimModal';
@@ -27,7 +29,31 @@ export function Dashboard() {
   }); // Pop up for new users
   
   const { openAgentChat } = useOutletContext<{ openAgentChat: (prefill?: string) => void }>();
-  const { user } = useAuth();
+    const { user } = useAuth();
+  const [userBalance, setUserBalance] = useState({
+    total_balance: 0,
+    invested_amount: 0,
+    cash_balance: 0,
+    returns_amount: 0
+  });
+
+  useEffect(() => {
+    if (user) {
+      fetchBalance();
+    }
+  }, [user]);
+
+  const fetchBalance = async () => {
+    const { data, error } = await supabase
+      .from('user_balances')
+      .select('*')
+      .eq('user_id', user?.id)
+      .single();
+      
+    if (data && !error) {
+      setUserBalance(data);
+    }
+  };
   
   const navigate = useNavigate();
 
@@ -56,7 +82,7 @@ export function Dashboard() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10">
           <div>
             <h1 className="text-2xl sm:text-3xl font-bold font-heading text-slate-900">Dashboard</h1>
-            <p className="text-slate-500">Welcome, {user?.user_metadata?.first_name} {user?.user_metadata?.last_name}. Let's get started.</p>
+            <p className="text-slate-500">Welcome, {user?.user_metadata?.last_name || user?.user_metadata?.first_name}. Let's get started.</p>
           </div>
           <div className="flex items-center gap-3">
             <div className="relative">
@@ -117,7 +143,7 @@ export function Dashboard() {
             <div className="flex items-center gap-3 text-slate-600 mb-4 font-medium">
               <Wallet className="w-5 h-5 text-slate-900" /> Total Balance
             </div>
-            <div className="text-3xl sm:text-4xl font-bold font-heading text-slate-900 mb-2">{formatCurrency(0)}</div>
+            <div className="text-3xl sm:text-4xl font-bold font-heading text-slate-900 mb-2">{formatCurrency(userBalance.total_balance)}</div>
             <div className="text-sm font-medium text-slate-500">
               Awaiting initial deposit
             </div>
@@ -132,7 +158,7 @@ export function Dashboard() {
             <div className="flex items-center gap-3 text-slate-600 mb-4 font-medium">
               <PieChart className="w-5 h-5 text-slate-900" /> Active Investments
             </div>
-            <div className="text-3xl sm:text-4xl font-bold font-heading text-slate-900 mb-2">0</div>
+            <div className="text-3xl sm:text-4xl font-bold font-heading text-slate-900 mb-2">{formatCurrency(userBalance.invested_amount)}</div>
             <div className="text-sm text-slate-500 font-medium">
               No active portfolios yet
             </div>
@@ -147,7 +173,7 @@ export function Dashboard() {
             <div className="flex items-center gap-3 text-slate-400 mb-4 font-medium">
               <ShieldCheck className="w-5 h-5 text-white" /> Insurance Coverage
             </div>
-            <div className="text-3xl sm:text-4xl font-bold font-heading text-white mb-2">{formatCurrency(0)}</div>
+            <div className="text-3xl sm:text-4xl font-bold font-heading text-white mb-2">{formatCurrency(userBalance.invested_amount)}</div>
             <div className="text-sm text-slate-400 font-medium">
               No active policies
             </div>

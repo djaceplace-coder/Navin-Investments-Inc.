@@ -17,18 +17,19 @@ const NAV_ITEMS = [
   { name: 'Insurance', href: '/dashboard/insurance', icon: ShieldCheck },
   { name: 'Transactions', href: '/transactions', icon: ArrowLeftRight },
   { name: 'Messages', href: '/messages', icon: MessageSquare },
+  { name: 'Settings', href: '/settings', icon: Settings },
 ];
 
 export function ClientLayout() {
   const location = useLocation();
-  const { user, loading } = useAuth();
-  if (loading) return null;
-  if (!user) return <Navigate to="/login" />;
   const navigate = useNavigate();
   const [profileOpen, setProfileOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [chatPrefill, setChatPrefill] = useState('');
+  const [chatPrefill, setChatPrefill] = useState("");
+  const { user, loading } = useAuth();
+  if (loading) return null;
+  if (!user) return <Navigate to="/login" />;
 
   const openAgentChat = (prefill: string = '') => {
     setChatPrefill(prefill);
@@ -84,7 +85,7 @@ export function ClientLayout() {
       {/* Main Content Area */}
       <div className="flex-1 lg:pl-64 flex flex-col min-h-screen">
         {/* Top Header */}
-        <header className="h-[72px] bg-white border-b border-slate-200 flex items-center justify-between px-4 sm:px-6 sticky top-0 z-30">
+        <header className="hidden lg:flex h-[72px] bg-white border-b border-slate-200 items-center justify-between px-4 sm:px-6 sticky top-0 z-30">
           <div className="flex items-center gap-4 lg:hidden">
             <Link to="/dashboard" className="flex items-center gap-2">
               <Logo className="h-6 w-auto" />
@@ -130,7 +131,7 @@ export function ClientLayout() {
                       className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2 z-50 origin-top-right"
                     >
                       <div className="px-4 py-3 border-b border-slate-100">
-                        <p className="text-sm font-medium text-slate-900">{user?.user_metadata?.first_name} {user?.user_metadata?.last_name}</p>
+                        <p className="text-sm font-medium text-slate-900">{user?.user_metadata?.last_name || user?.user_metadata?.first_name}</p>
                         <p className="text-xs text-slate-500 truncate">{user?.email}</p>
                       </div>
                       <div className="py-2">

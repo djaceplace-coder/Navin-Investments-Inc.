@@ -39,8 +39,8 @@ export function Home() {
         {/* Photorealistic editorial hero image (Unsplash placeholder) */}
         <div className="absolute inset-0 z-0 overflow-hidden rounded-b-[3rem] sm:rounded-b-[4rem]">
           <img 
-            src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2000&auto=format&fit=crop" 
-            alt="Modern sharp corporate interior" 
+            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000&auto=format&fit=crop" 
+            alt="Cinematic corporate skyscraper" 
             className="w-full h-full object-cover object-[70%_center]"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-50 via-slate-50/90 to-transparent" />
@@ -55,7 +55,7 @@ export function Home() {
         >
           <motion.h1 
             variants={fadeInUp}
-            className="text-[40px] sm:text-6xl lg:text-7xl font-bold font-heading text-slate-900 leading-[1.1] mb-6 tracking-tight"
+            className="text-3xl sm:text-5xl lg:text-7xl font-bold font-heading text-slate-900 leading-[1.1] mb-6 tracking-tight"
           >
             Investing and protection, finally under one roof.
           </motion.h1>
@@ -123,15 +123,15 @@ export function Home() {
           
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             <div className="border-l-2 border-slate-200 pl-6">
-              <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-5xl font-heading font-bold text-slate-900 mb-2">30+</motion.div>
+              <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-4xl sm:text-5xl font-heading font-bold text-slate-900 mb-2">30+</motion.div>
               <div className="text-slate-600 font-medium">Years in business</div>
             </div>
             <div className="border-l-2 border-slate-200 pl-6">
-              <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-5xl font-heading font-bold text-slate-900 mb-2">5</motion.div>
+              <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-4xl sm:text-5xl font-heading font-bold text-slate-900 mb-2">5</motion.div>
               <div className="text-slate-600 font-medium">Asset classes covered</div>
             </div>
             <div className="border-l-2 border-slate-200 pl-6">
-              <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-5xl font-heading font-bold text-slate-900 mb-2">28</motion.div>
+              <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-4xl sm:text-5xl font-heading font-bold text-slate-900 mb-2">28</motion.div>
               <div className="text-slate-600 font-medium">Licensed regions</div>
             </div>
           </div>
@@ -239,7 +239,7 @@ export function Home() {
 
       {/* 7. Final CTA */}
       <section className="py-24 lg:py-32 px-5 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full text-center">
-        <h2 className="text-4xl sm:text-5xl font-bold font-heading text-slate-900 mb-6 tracking-tight">Ready to secure your future?</h2>
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-slate-900 mb-6 tracking-tight">Ready to secure your future?</h2>
         <p className="text-lg sm:text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
           Open an account in minutes, or speak with an agent to build a custom plan.
         </p>

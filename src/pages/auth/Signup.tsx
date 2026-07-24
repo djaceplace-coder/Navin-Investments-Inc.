@@ -248,7 +248,7 @@ export function Signup() {
               </div>
               <h2 className="text-2xl font-bold font-heading text-slate-900 mb-4">Account created!</h2>
               <p className="text-slate-500 mb-8">
-                Welcome to NAVIN INVESTMENT INC., {formData.firstName}. Next, we'll need to verify your identity to comply with financial regulations.
+                Welcome to NAVIN INVESTMENT INC., {formData.lastName}. Next, we'll need to verify your identity to comply with financial regulations.
               </p>
               <button 
                 className="w-full bg-slate-900 text-white px-8 py-4 rounded-xl font-medium hover:bg-slate-800 transition-all"
