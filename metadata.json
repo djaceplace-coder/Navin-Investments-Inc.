@@ -1,0 +1,6 @@
+{
+  "name": "NAVIN INVESTMENT INC.",
+  "description": "A premium full-service investment brokerage and insurance platform. Built with React and Tailwind CSS.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
