@@ -68,7 +68,7 @@ export function Transactions() {
     <div className="w-full">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
         <div>
-          <h1 className="text-3xl font-bold font-heading text-slate-900 mb-2">Transactions</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold font-heading text-slate-900 mb-2">Transactions</h1>
           <p className="text-slate-500">History of your deposits, withdrawals, and trades.</p>
         </div>
         <div className="flex items-center gap-2">

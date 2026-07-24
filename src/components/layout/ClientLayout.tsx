@@ -1,4 +1,6 @@
-import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, Link, useLocation, useNavigate, Navigate } from 'react-router-dom';
+import { useAuth } from '../../lib/AuthContext';
+import { supabase } from '../../lib/supabase';
 import { motion, AnimatePresence } from 'motion/react';
 import { Logo } from '../ui/Logo';
 import { 
@@ -19,6 +21,9 @@ const NAV_ITEMS = [
 
 export function ClientLayout() {
   const location = useLocation();
+  const { user, loading } = useAuth();
+  if (loading) return null;
+  if (!user) return <Navigate to="/login" />;
   const navigate = useNavigate();
   const [profileOpen, setProfileOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -30,8 +35,8 @@ export function ClientLayout() {
     setIsChatOpen(true);
   };
 
-  const handleLogout = () => {
-    // Kills token, clears local storage -> redirect to public home
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
     navigate('/');
   };
 
@@ -81,12 +86,6 @@ export function ClientLayout() {
         {/* Top Header */}
         <header className="h-[72px] bg-white border-b border-slate-200 flex items-center justify-between px-4 sm:px-6 sticky top-0 z-30">
           <div className="flex items-center gap-4 lg:hidden">
-            <button 
-              onClick={() => setMobileMenuOpen(true)}
-              className="p-2 -ml-2 text-slate-600 hover:text-slate-900"
-            >
-              <Menu className="w-6 h-6" />
-            </button>
             <Link to="/dashboard" className="flex items-center gap-2">
               <Logo className="h-6 w-auto" />
             </Link>
@@ -115,7 +114,7 @@ export function ClientLayout() {
                 className="flex items-center gap-2 focus:outline-none"
               >
                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-sm sm:text-base border-2 border-white shadow-sm">
-                  JS
+                  {user?.user_metadata?.first_name?.[0] || ''}{user?.user_metadata?.last_name?.[0] || ''}
                 </div>
                 <ChevronDown className="w-4 h-4 text-slate-400 hidden sm:block" />
               </button>
@@ -131,8 +130,8 @@ export function ClientLayout() {
                       className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2 z-50 origin-top-right"
                     >
                       <div className="px-4 py-3 border-b border-slate-100">
-                        <p className="text-sm font-medium text-slate-900">John Smith</p>
-                        <p className="text-xs text-slate-500 truncate">john@example.com</p>
+                        <p className="text-sm font-medium text-slate-900">{user?.user_metadata?.first_name} {user?.user_metadata?.last_name}</p>
+                        <p className="text-xs text-slate-500 truncate">{user?.email}</p>
                       </div>
                       <div className="py-2">
                         <Link to="/settings" className="flex items-center gap-2 px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900">
@@ -158,64 +157,33 @@ export function ClientLayout() {
           </div>
         </header>
 
-        <main className="flex-1 relative">
+        <main className="flex-1 relative pb-20 lg:pb-0">
           <Outlet context={{ openAgentChat }} />
         </main>
       </div>
 
-      {/* Mobile Menu Sidebar */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <>
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 lg:hidden"
-            />
-            <motion.div 
-              initial={{ x: '-100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '-100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 left-0 w-3/4 max-w-sm bg-white shadow-2xl z-50 lg:hidden flex flex-col"
-            >
-              <div className="h-[72px] flex items-center justify-between px-4 border-b border-slate-100">
-                <Link to="/dashboard" onClick={() => setMobileMenuOpen(false)}>
-                  <Logo className="h-6 w-auto" />
-                </Link>
-                <button 
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="p-2 text-slate-400 hover:text-slate-600 bg-slate-50 rounded-full"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-              <div className="flex-1 overflow-y-auto py-6 px-4 space-y-1">
-                {NAV_ITEMS.map((item) => {
-                  const isActive = location.pathname === item.href;
-                  return (
-                    <Link
-                      key={item.name}
-                      to={item.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors ${
-                        isActive 
-                          ? 'bg-slate-900 text-white' 
-                          : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
-                      }`}
-                    >
-                      <item.icon className="w-5 h-5" />
-                      {item.name}
-                    </Link>
-                  );
-                })}
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+      {/* Mobile Bottom Nav */}
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 z-40 pb-safe">
+        <div className="flex items-center justify-around px-2 py-2">
+          {NAV_ITEMS.map((item) => {
+            const isActive = location.pathname === item.href;
+            return (
+              <Link
+                key={item.name}
+                to={item.href}
+                className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-colors ${
+                  isActive 
+                    ? 'text-slate-900' 
+                    : 'text-slate-500 hover:text-slate-900'
+                }`}
+              >
+                <item.icon className="w-5 h-5" />
+                <span className="text-[10px] font-medium">{item.name}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
 
       <AgentChatDrawer 
         isOpen={isChatOpen} 

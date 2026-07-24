@@ -2,8 +2,10 @@ import { motion } from 'motion/react';
 import { User, Bell, Shield, Key, CreditCard, Smartphone } from 'lucide-react';
 import { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
+import { useAuth } from '../../lib/AuthContext';
 
 export function Settings() {
+  const { user } = useAuth();
   const { openAgentChat } = useOutletContext<{ openAgentChat: (prefill?: string) => void }>();
   const [activeTab, setActiveTab] = useState('profile');
 
@@ -17,7 +19,7 @@ export function Settings() {
   return (
     <div className="w-full max-w-5xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold font-heading text-slate-900 mb-2">Account Settings</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold font-heading text-slate-900 mb-2">Account Settings</h1>
         <p className="text-slate-500">Manage your profile, security preferences, and linked accounts.</p>
       </div>
 
@@ -50,7 +52,7 @@ export function Settings() {
               <h2 className="text-xl font-bold text-slate-900 mb-6">Profile Information</h2>
               
               <div className="flex items-center gap-6 mb-8">
-                <div className="w-24 h-24 bg-slate-200 rounded-full flex items-center justify-center text-3xl font-bold text-slate-500">
+                <div className="w-24 h-24 bg-slate-200 rounded-full flex items-center justify-center text-2xl sm:text-3xl font-bold text-slate-500">
                   JD
                 </div>
                 <div>
@@ -65,17 +67,17 @@ export function Settings() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium text-slate-700 mb-2">First Name</label>
-                    <input type="text" defaultValue="John" className="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-900 outline-none bg-slate-50 focus:bg-white" />
+                    <input type="text" defaultValue={user?.user_metadata?.first_name || ""} className="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-900 outline-none bg-slate-50 focus:bg-white" />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-slate-700 mb-2">Last Name</label>
-                    <input type="text" defaultValue="Doe" className="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-900 outline-none bg-slate-50 focus:bg-white" />
+                    <input type="text" defaultValue={user?.user_metadata?.last_name || ""} className="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-900 outline-none bg-slate-50 focus:bg-white" />
                   </div>
                 </div>
                 
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-2">Email Address</label>
-                  <input type="email" defaultValue="john.doe@example.com" className="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-900 outline-none bg-slate-50 focus:bg-white" />
+                  <input type="email" defaultValue={user?.email || ""} className="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-900 outline-none bg-slate-50 focus:bg-white" />
                 </div>
                 
                 <div>

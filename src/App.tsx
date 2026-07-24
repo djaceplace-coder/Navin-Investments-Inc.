@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { AuthProvider } from './lib/AuthContext';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { PublicLayout } from './components/layout/PublicLayout';
 import { ClientLayout } from './components/layout/ClientLayout';
@@ -41,6 +42,7 @@ import { InsurancePolicies } from './pages/dashboard/InsurancePolicies';
 
 export default function App() {
   return (
+    <AuthProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<PublicLayout />}>
@@ -97,5 +99,6 @@ export default function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    </AuthProvider>
   );
 }

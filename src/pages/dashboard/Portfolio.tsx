@@ -30,7 +30,7 @@ export function Portfolio() {
     <div className="w-full">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
         <div>
-          <h1 className="text-3xl font-bold font-heading text-slate-900 mb-2">Portfolio Management</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold font-heading text-slate-900 mb-2">Portfolio Management</h1>
           <p className="text-slate-500">Track and manage your investment allocations.</p>
         </div>
         <div className="flex items-center gap-2">
@@ -54,7 +54,7 @@ export function Portfolio() {
           <div className="flex justify-between items-start mb-6">
             <div>
               <div className="text-slate-500 text-sm font-medium mb-1">Total Value</div>
-              <div className="text-4xl font-bold text-slate-900">$145,000.00</div>
+              <div className="text-3xl sm:text-4xl font-bold text-slate-900">$145,000.00</div>
               <div className="flex items-center gap-2 mt-2">
                 <span className="inline-flex items-center text-sm font-medium text-green-600 bg-green-50 px-2 py-1 rounded-md">
                   <TrendingUp className="w-4 h-4 mr-1" /> +$25,000.00 (20.8%)
